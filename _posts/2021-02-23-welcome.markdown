@@ -1,0 +1,16 @@
+---
+layout: single
+title:  "Welcome!"
+date:   2021-02-23 14:17:47 -0800
+categories: general
+---
+Welcome to Mandarons!
+
+I have explored few newer paths in recent past - especially focused on simplifying my life with technology. 
+This gave me an opportunity to learn newer technology, privacy concerns, security and fun of self-hosting. 
+
+With this blog, I will share some of the technology solutions that I put together to solve some day-to-day, possibly boring, stuff.
+
+Beyond my own use case, I will try to envision possible use cases that the solution might help with. 
+
+Let's get started! :)
