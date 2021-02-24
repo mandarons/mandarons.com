@@ -3,7 +3,6 @@ rvm:
   - 3.0.0
 before_script:
   - rm -rf public
-  - chmod +x ./script/cibuild.sh
 script:
   - ./script/cibuild.sh
 branches:
