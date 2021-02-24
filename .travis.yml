@@ -1,7 +1,17 @@
 language: ruby
+rvm:
+  - 3.0.0
 before_script:
   - rm -rf public
+  - chmod +x ./script/cibuild.sh
 script:
-  - bundle exec jekyll build
+  - ./script/cibuild.sh
 branches:
   only: main
+addons:
+  apt:
+    packages:
+      - libcurl4-openssl-dev
+cache: bundler
+notifications:
+  email: false
