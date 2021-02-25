@@ -4,7 +4,6 @@ rvm:
 before_script:
   - rm -rf public
   - chmod +x ./scripts/cibuild.sh
-  - pip install --user awscli
 script:
   - ./scripts/cibuild.sh
 branches:
