@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://mandarons.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mandarons.com/" rel="alternate" type="text/html" /><updated>2021-02-25T18:18:25-08:00</updated><id>https://mandarons.com/feed.xml</id><title type="html">Mandarons</title><subtitle>Tech stuff that I hope, someone will find useful.</subtitle><author><name>Mandar Patil</name></author><entry><title type="html">Welcome!</title><link href="https://mandarons.com/general/welcome/" rel="alternate" type="text/html" title="Welcome!" /><published>2021-02-23T14:17:47-08:00</published><updated>2021-02-23T14:17:47-08:00</updated><id>https://mandarons.com/general/welcome</id><content type="html" xml:base="https://mandarons.com/general/welcome/">&lt;p&gt;Welcome to Mandarons!&lt;/p&gt;
+
+&lt;p&gt;I have explored few newer paths in recent past - especially focused on simplifying my life with technology. 
+This gave me an opportunity to learn newer technology, privacy concerns, security and fun of self-hosting.&lt;/p&gt;
+
+&lt;p&gt;With this blog, I will share some of the technology solutions that I put together to solve some day-to-day, possibly boring, stuff.&lt;/p&gt;
+
+&lt;p&gt;Beyond my own use case, I will try to envision possible use cases that the solution might help with.&lt;/p&gt;
+
+&lt;p&gt;Let’s get started! :)&lt;/p&gt;</content><author><name>Mandar Patil</name></author><category term="General" /><summary type="html">Welcome to Mandarons!</summary></entry><entry><title type="html">Searchable Scanned Documents in iCloud Drive</title><link href="https://mandarons.com/tutorial/icloud-paperless/" rel="alternate" type="text/html" title="Searchable Scanned Documents in iCloud Drive" /><published>2021-02-23T14:17:47-08:00</published><updated>2021-02-23T14:17:47-08:00</updated><id>https://mandarons.com/tutorial/icloud-paperless</id><content type="html" xml:base="https://mandarons.com/tutorial/icloud-paperless/">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem statement&lt;/h2&gt;
+
+&lt;p&gt;With an ongoing shift to paperless transactions, it has been easier than ever to reduce paper (and save the environment) in our lives. However, with a lot of real-world paper is going electronic, searching for something in the scanned documents has been a huge challenge for me.&lt;/p&gt;
+
+&lt;p&gt;I started to look for answers.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Being in Apple ecosystem, I wanted something to allow me to index specific folder in iCloud drive (I prefer all of my scanned documents go in a specific folder), with a web interface and of course, ability to self-host.&lt;/p&gt;
+
+&lt;p&gt;I stumbled upon the &lt;a href=&quot;https://github.com/jonaswinkler/paperless-ng&quot;&gt;Paperless-ng project&lt;/a&gt;. It has the features I am looking for - web GUI and &lt;a href=&quot;https://paperless-ng.readthedocs.io/en/latest/setup.html#setup-docker-hub&quot;&gt;dockerized for self-hosting&lt;/a&gt;. Cool! But how about dockerized iCloud drive client?&lt;/p&gt;
+
+&lt;p&gt;Well, I couldn’t find any reliable ones. So I decided to make one - &lt;a href=&quot;https://github.com/mandarons/icloud-drive-docker&quot;&gt;Dockerized iCloud Drive&lt;/a&gt;. By the way, &lt;a href=&quot;https://github.com/picklepete/pyicloud&quot;&gt;pyiCloud&lt;/a&gt; is awesome! :sunglasses:&lt;/p&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;h3 id=&quot;prerequisites&quot;&gt;prerequisites&lt;/h3&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://www.docker.com/products/docker-desktop&quot;&gt;Docker&lt;/a&gt; (on Windows/Linux/MacOS or any other OS you have) [Required]&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://docs.docker.com/compose/install/&quot;&gt;Docker-Compose&lt;/a&gt; [Strongly recommended]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Create following directories in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;home&lt;/code&gt; (or any other location) for our applications:
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/paperless-ng&lt;/code&gt;&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/icloud-drive&lt;/code&gt;&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/postgres&lt;/code&gt;&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/redis&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Create a directory for syncing iCloud Drive (one way):
+Let’s call it as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;drive&lt;/code&gt; located at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/icloud-drive/drive&lt;/code&gt;. This will be shared between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;icloud-drive&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paperless-ng&lt;/code&gt; docker containers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config.yml&lt;/code&gt; file at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/icloud-drive/config.yml&lt;/code&gt; with following configuration:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# iCloud drive username&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;lt;icloud-username&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# replace with your icloud username/email&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# iCloud drive password - leave it empty. We will configure keyring in the next step&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sync_interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1800&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# every 30 minutes&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;./drive&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# local to icloud-drive container&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;remove_obsolete&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# to retain deleted items on iCloud server&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# not needed until something goes wrong.&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# File filters to be included in syncing iCloud drive content&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;folders&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Documents&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#relative location in your iCloud drive to contents to scan&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;file_extensions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# File extensions to be included - below are common scanned document formats&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pdf&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;png&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jpg&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jpeg&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/docker-compose.yml&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Copy following code into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.4&quot;&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;postgres&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgres&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgres:11.3-alpine&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;POSTGRES_PASSWORD=&amp;lt;unique-complex-string&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#Change it&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;5432:5432&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/postgres/data:/var/lib/postgresql/data&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pg_isready -U postgres&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;retries&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;start_period&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30s&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis:alpine3.12&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;6379:6379&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis-server --appendonly yes&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/redis/data:/data&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis-cli server ping&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;retries&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;start_period&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30s&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;paperless-ng&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jonaswinkler/paperless-ng:0.9.13&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;paperless-ng&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgres&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;icloud-drive&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8083:8000&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# or any other port you want to use&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/paperless-ng/data/data:/usr/src/paperless/data&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/paperless-ng/data/media:/usr/src/paperless/media&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/paperless-ng/data/export:/usr/src/paperless/export&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/icloud-drive/drive:/usr/src/paperless/consume&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;USERMAP_UID&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;USERMAP_GID&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_OCR_LANGUAGES&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;eng&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_SECRET_KEY&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;random-secret-key&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Feel free to change it to anything else&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_TIME_ZONE&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;America/Los_Angeles&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Or your time zone&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_REDIS&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis://redis:6379&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_DBHOST&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgres&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_DBNAME&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;paperless-ng-db&lt;/span&gt; 
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_DBUSER&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;paperless-ng-db-user&lt;/span&gt; 
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_DBPASS&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;paperless-ng-db-user-password&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PAPERLESS_CONSUMER_RECURSIVE&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# For recursive scanning of `drive` directory&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;curl&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-f&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;http://&amp;lt;host-ip-address&amp;gt;:8083&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;host-ip-address&amp;gt; is your system&apos;s IP address on which docker is installed&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;retries&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;icloud-drive&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mandarons/icloud-drive:1.0.0&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;icloud-drive&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/etc/timezone:/etc/timezone:ro&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/etc/localtime:/etc/localtime:ro&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/icloud-drive/config.yaml:/app/config.yaml&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# We will create the config file in next step&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${PWD}/icloud-drive/drive:/app/drive&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;On a command line, change current directory to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons&lt;/code&gt; and Run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose up -d&lt;/code&gt; to create containers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Create POSTGRES database for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paperless-ng&lt;/code&gt;
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Log into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postgres&lt;/code&gt; container: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker exec -it postgres /bin/sh&lt;/code&gt;&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Run following commands:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# su - postgres
+$ psql
+postgres=# create database paperless-ng;
+postgres=# create user paperless-ng-user with encrypted password &apos;paperless-ng-user-password&apos;;
+postgres=# grant all privileges on database paperless-ng to paperless-ng-user;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;p&gt;We are now set with the database. No special configuration is required for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redis&lt;/code&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;icloud-drive&lt;/code&gt; for auto-login using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keyring&lt;/code&gt; utility by running command: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker exec -it icloud-drive /bin/sh -c &quot;icloud --username=&amp;lt;icloud-username&amp;gt;&quot;&lt;/code&gt; and follow the prompts to authenticate.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Relaunch the containers with updated configuration from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/mandarons/&lt;/code&gt; using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose down &amp;amp;&amp;amp; docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Navigate to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;host-ip-address&amp;gt;:8083&lt;/code&gt; to lauch &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paperless-ng&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And that’s it! Depending on number and size of your scanned documents, it will take some time to show all of them in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paperless-ng&lt;/code&gt; web app.&lt;/p&gt;
+
+&lt;p&gt;May the Laziness with you! :smile:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gitter.im/mandarons/community&quot;&gt;&lt;img src=&quot;https://badges.gitter.im/mandarons/iCloud-drive-docker.svg&quot; alt=&quot;Join the chat at https://gitter.im/mandarons/community&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;https://www.buymeacoffee.com/mandarons&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png&quot; alt=&quot;Buy Me A Coffee&quot; style=&quot;height: 20px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name>Mandar Patil</name></author><category term="Tutorial" /><summary type="html">Problem statement</summary></entry></feed>
