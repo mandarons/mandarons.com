@@ -6,6 +6,7 @@ if [[ -z "$1" ]]; then
 fi
 current_branch=$(git branch --show-current)
 echo "Current branch: ${current_branch}"
+rm -rf public
 bundle exec jekyll build &&
     git checkout gh-pages &&
     cd public &&
