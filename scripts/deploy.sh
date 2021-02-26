@@ -6,20 +6,13 @@ if [[ -z "$1" ]]; then
 fi
 current_branch=$(git branch --show-current)
 echo "Current branch: ${current_branch}"
-rm -rf public
-bundle exec jekyll build &&
-    git checkout gh-pages &&
-    cp .gitignore.gh-pages .gitignore &&
-    cd public &&
-    git add . &&
-    git commit -m "$1" &&
-    # git push origin gh-pages &&
-    cd .. &&
-    echo "Ready to deploy."
-# echo "Successfully deployed to GitHub."
-if [ ${current_branch} != "gh-pages" ]; then
-    echo "Checking out previous branch ..." &&
-        git checkout ${current_branch} &&
-        cp -f .gitignore.main .gitignore
+if [ ${current_branch} != "main" ]; then
+    echo "Cannot deploy from non-main branch."
+    exit
 fi
-echo "All good."
+rm -rf public
+rm -rf .jekyll-cache
+bundle exec jekyll build &&
+    git add public/ &&
+    git commit -m "$1" &&
+    echo "Ready to deploy."
