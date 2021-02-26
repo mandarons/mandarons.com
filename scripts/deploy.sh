@@ -10,9 +10,9 @@ if [ ${current_branch} != "main" ]; then
     echo "Cannot deploy from non-main branch."
     exit
 fi
-rm -rf public
+rm -rf doc
 rm -rf .jekyll-cache
 bundle exec jekyll build &&
-    git add public/ &&
+    git add doc/ &&
     git commit -m "$1" &&
     echo "Ready to deploy."
