@@ -10,6 +10,7 @@ rm -rf public
 bundle exec jekyll build &&
     cd public &&
     git checkout gh-pages &&
+    cp .gitignore.gh-pages .gitignore &&
     git add . &&
     git commit -m "$1" &&
     # git push origin gh-pages &&
@@ -18,6 +19,7 @@ bundle exec jekyll build &&
 # echo "Successfully deployed to GitHub."
 if [ ${current_branch} != "gh-pages" ]; then
     echo "Checking out previous branch ..." &&
-        git checkout ${current_branch}
+        git checkout ${current_branch} &&
+        cp -f .gitignore.main .gitignore
 fi
 echo "All good."
