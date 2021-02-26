@@ -8,9 +8,9 @@ current_branch=$(git branch --show-current)
 echo "Current branch: ${current_branch}"
 rm -rf public
 bundle exec jekyll build &&
-    cd public &&
     git checkout gh-pages &&
     cp .gitignore.gh-pages .gitignore &&
+    cd public &&
     git add . &&
     git commit -m "$1" &&
     # git push origin gh-pages &&
